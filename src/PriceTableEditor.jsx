@@ -9,7 +9,8 @@ const PriceTableEditor = () => {
       image: null,
       specification: "3kg/can\n4 can/thùng",
       shopPrice: "135.000đ",
-      retailPrice: "175.000đ"
+      retailPrice: "175.000đ",
+      discount: "10%"
     },
     {
       id: 2,
@@ -17,7 +18,8 @@ const PriceTableEditor = () => {
       image: null,
       specification: "1.2l/túi\n12 túi/thùng",
       shopPrice: "55.000đ",
-      retailPrice: "75.000đ"
+      retailPrice: "75.000đ",
+      discount: "15%"
     },
     {
       id: 3,
@@ -25,7 +27,8 @@ const PriceTableEditor = () => {
       image: null,
       specification: "30gr/hộp\n20 hộp/thùng",
       shopPrice: "45.000đ",
-      retailPrice: "65.000đ"
+      retailPrice: "65.000đ",
+      discount: "20%"
     },
     {
       id: 4,
@@ -33,7 +36,8 @@ const PriceTableEditor = () => {
       image: null,
       specification: "115ml/túi\n20 túi/hộp\n8 hộp/thùng",
       shopPrice: "20.000đ",
-      retailPrice: "26.000đ"
+      retailPrice: "26.000đ",
+      discount: "12%"
     },
     {
       id: 5,
@@ -41,7 +45,8 @@ const PriceTableEditor = () => {
       image: null,
       specification: "18gr/hũ\n4 hũ/hộp\n20 hộp/thùng",
       shopPrice: "135.000đ",
-      retailPrice: "170.000đ"
+      retailPrice: "170.000đ",
+      discount: "18%"
     },
     {
       id: 6,
@@ -49,7 +54,8 @@ const PriceTableEditor = () => {
       image: null,
       specification: "6 hũ/hộp\n100 hũ/thùng\nKèm vỏ hộp 6, hộp 9",
       shopPrice: "45.000đ",
-      retailPrice: "60.000đ"
+      retailPrice: "60.000đ",
+      discount: "25%"
     },
     {
       id: 7,
@@ -57,7 +63,8 @@ const PriceTableEditor = () => {
       image: null,
       specification: "6 hũ/hộp\n100 hũ/thùng",
       shopPrice: "38.000đ",
-      retailPrice: "50.000đ"
+      retailPrice: "50.000đ",
+      discount: "22%"
     }
   ]);
 
@@ -94,7 +101,8 @@ const PriceTableEditor = () => {
       image: null,
       specification: "Quy cách mới",
       shopPrice: "0đ",
-      retailPrice: "0đ"
+      retailPrice: "0đ",
+      discount: "0%"
     };
     setProducts([...products, newProduct]);
   };
@@ -175,8 +183,8 @@ const PriceTableEditor = () => {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
       
-      // Kích thước canvas được tối ưu lại
-      const canvasWidth = 2000;
+      // Kích thước canvas được tối ưu lại với cột chiết khấu
+      const canvasWidth = 2200; // Tăng chiều rộng để chứa cột chiết khấu
       const rowHeight = 160;
       const companyHeaderHeight = 140;
       const tableHeaderHeight = 70;
@@ -225,7 +233,7 @@ const PriceTableEditor = () => {
       ctx.font = 'bold 48px "Segoe UI", Arial, sans-serif';
       ctx.textAlign = 'center';
       ctx.letterSpacing = '2px';
-      ctx.fillText('OANH NGUYỄN - Phân Phối Bỉm Sữa', canvasWidth / 2, currentY + 65);
+      ctx.fillText('Nhà Phân Phối NGUYỄN OANH', canvasWidth / 2, currentY + 65);
       
       // Đường phân cách hiện đại
       ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
@@ -239,20 +247,20 @@ const PriceTableEditor = () => {
       ctx.fillStyle = '#ffffff';
       ctx.font = 'bold 36px "Segoe UI", Arial, sans-serif';
       ctx.letterSpacing = '1px';
-      ctx.fillText('BẢNG BÁO GIÁ SẢN PHẨM', canvasWidth / 2, currentY + 125);
+      ctx.fillText('Cung cấp Bỉm Sữa và Các Sản Phẩm Ngành Hàng Mẹ Và Bé', canvasWidth / 2, currentY + 125);
 
       // Thông tin liên hệ
       ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
       ctx.font = '22px "Segoe UI", Arial, sans-serif';
       ctx.textAlign = 'center';
       ctx.letterSpacing = '1px';
-      ctx.fillText('FB: OANH NGUYỄN - SĐT: 036.7373.498', canvasWidth / 2, currentY + 165);
+      ctx.fillText('Facebook: Oanh Nguyễn Phânphốibỉmsữa - SĐT: 036.7373.498 - 086.7865.565 ', canvasWidth / 2, currentY + 165);
       
       currentY += headerHeight + 30;
       
-      // Điều chỉnh độ rộng cột: tăng cột hình ảnh, giảm cột giá bán lẻ
-      const colWidths = [80, 300, 600, 220, 200, 300]; // STT, TÊN, HÌNH (tăng lên 500), QUY CÁCH, GIÁ SHOP, GIÁ LẺ
-      const headers = ['STT', 'TÊN SẢN PHẨM', 'HÌNH ẢNH', 'QUY CÁCH', 'GIÁ BÁN SHOP', 'GIÁ BÁN LẺ'];
+      // Điều chỉnh độ rộng cột với cột chiết khấu mới
+      const colWidths = [80, 300, 600, 220, 200, 250, 350]; // STT, TÊN, HÌNH, QUY CÁCH, GIÁ SHOP, GIÁ LẺ, CHIẾT KHẤU
+      const headers = ['STT', 'TÊN SẢN PHẨM', 'HÌNH ẢNH', 'QUY CÁCH', 'GIÁ BÁN SHOP', 'GIÁ BÁN LẺ', 'CHIẾT KHẤU'];
       
       // Background cho header cột với bo góc tròn
       ctx.fillStyle = '#22c55e';
@@ -331,13 +339,13 @@ const PriceTableEditor = () => {
           ctx.fillText(line, currentX + 15, nameStartY + lineIndex * 22);
         });
         
-        // Hình ảnh (kích thước lớn hơn nhiều)
+        // Hình ảnh
         currentX += colWidths[1];
         if (product.image) {
           try {
             const img = await loadImage(product.image);
-            const imgWidth = 280; // Chiều rộng ảnh tăng lên
-            const imgHeight = 140; // Chiều cao ảnh
+            const imgWidth = 240; // Điều chỉnh kích thước ảnh
+            const imgHeight = 140;
             const imgX = currentX + (colWidths[2] - imgWidth) / 2;
             const imgY = rowY + (rowHeight - imgHeight) / 2;
             
@@ -359,8 +367,8 @@ const PriceTableEditor = () => {
             ctx.stroke();
           } catch (error) {
             console.log('Không thể load ảnh:', error);
-            // Placeholder đẹp hơn với kích thước lớn
-            const imgWidth = 280;
+            // Placeholder đẹp hơn
+            const imgWidth = 240;
             const imgHeight = 140;
             const imgX = currentX + (colWidths[2] - imgWidth) / 2;
             const imgY = rowY + (rowHeight - imgHeight) / 2;
@@ -381,8 +389,8 @@ const PriceTableEditor = () => {
             ctx.fillText('hình ảnh', currentX + colWidths[2] / 2, rowY + rowHeight / 2 + 15);
           }
         } else {
-          // Placeholder khi không có ảnh với kích thước lớn
-          const imgWidth = 280;
+          // Placeholder khi không có ảnh
+          const imgWidth = 240;
           const imgHeight = 140;
           const imgX = currentX + (colWidths[2] - imgWidth) / 2;
           const imgY = rowY + (rowHeight - imgHeight) / 2;
@@ -421,12 +429,19 @@ const PriceTableEditor = () => {
         ctx.textAlign = 'center';
         ctx.fillText(product.shopPrice, currentX + colWidths[4] / 2, rowY + rowHeight / 2 + 8);
         
-        // Giá bán lẻ (cột nhỏ gọn hơn với font size phù hợp)
+        // Giá bán lẻ
         currentX += colWidths[4];
         ctx.fillStyle = '#16a34a';
-        ctx.font = 'bold 20px "Segoe UI", Arial, sans-serif'; // Font size vừa phải
+        ctx.font = 'bold 20px "Segoe UI", Arial, sans-serif';
         ctx.textAlign = 'center';
         ctx.fillText(product.retailPrice, currentX + colWidths[5] / 2, rowY + rowHeight / 2 + 8);
+        
+        // Chiết khấu (cột mới)
+        currentX += colWidths[5];
+        ctx.fillStyle = '#7c3aed';
+        ctx.font = 'bold 22px "Segoe UI", Arial, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(product.discount, currentX + colWidths[6] / 2, rowY + rowHeight / 2 + 8);
         
         // Vẽ border dọc giữa các cột
         currentX = 40;
@@ -461,9 +476,6 @@ const PriceTableEditor = () => {
       ctx.font = 'bold 18px "Segoe UI", Arial, sans-serif';
       ctx.textAlign = 'center';
       ctx.fillText('Liên hệ: Oanh Nguyễn - Phân phối bỉm sữa chất lượng cao', canvasWidth / 2, footerY + 30);
-      
-      ctx.font = '16px "Segoe UI", Arial, sans-serif';
-      ctx.fillText('Email: contact@oanhnguyenstore.com | SĐT: 0123.456.789', canvasWidth / 2, footerY + 55);
       
       // Tạo link download
       const link = document.createElement('a');
@@ -535,7 +547,9 @@ const PriceTableEditor = () => {
             {value}
           </div>
         ) : (
-          <div className="text-center font-medium text-green-700">
+          <div className={`text-center font-medium ${
+            field === 'discount' ? 'text-purple-700' : 'text-green-700'
+          }`}>
             {value}
           </div>
         )}
@@ -579,20 +593,21 @@ const PriceTableEditor = () => {
         </div>
 
         <div className="bg-white rounded-xl shadow-xl overflow-hidden border" ref={tableRef}>
-          {/* Sử dụng grid layout tối ưu với cột ảnh rộng hơn và cột giá lẻ nhỏ gọn hơn */}
-          <div className="grid grid-cols-[2fr_4fr_1.5fr_2fr_1.2fr_0.8fr] bg-gradient-to-r from-green-600 to-green-700 text-white font-bold">
+          {/* Grid layout với cột chiết khấu mới */}
+          <div className="grid grid-cols-[2fr_4fr_1.5fr_2fr_1.2fr_1fr_0.8fr_0.8fr] bg-gradient-to-r from-green-600 to-green-700 text-white font-bold">
             <div className="p-4 text-center border-r border-green-500">TÊN SẢN PHẨM</div>
             <div className="p-4 text-center border-r border-green-500">HÌNH ẢNH SẢN PHẨM</div>
             <div className="p-4 text-center border-r border-green-500">QUY CÁCH</div>
             <div className="p-4 text-center border-r border-green-500">GIÁ BÁN SHOP</div>
             <div className="p-4 text-center border-r border-green-500">GIÁ BÁN LẺ</div>
+            <div className="p-4 text-center border-r border-green-500">CHIẾT KHẤU</div>
             <div className="p-4 text-center">THAO TÁC</div>
           </div>
 
           {products.map((product, index) => (
             <div 
               key={product.id} 
-              className={`grid grid-cols-[2fr_4fr_1.5fr_2fr_1.2fr_0.8fr] border-b border-gray-200 transition-all hover:bg-blue-50 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}
+              className={`grid grid-cols-[2fr_4fr_1.5fr_2fr_1.2fr_1fr_0.8fr_0.8fr] border-b border-gray-200 transition-all hover:bg-blue-50 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}
             >
               <div className="p-4 border-r border-gray-200">
                 <EditableCell
@@ -684,6 +699,16 @@ const PriceTableEditor = () => {
                 </div>
               </div>
 
+              <div className="p-4 border-r border-gray-200">
+                <div className="text-center">
+                  <EditableCell
+                    productId={product.id}
+                    field="discount"
+                    value={product.discount}
+                  />
+                </div>
+              </div>
+
               <div className="p-4 flex justify-center">
                 <button
                   onClick={() => deleteProduct(product.id)}
@@ -712,6 +737,10 @@ const PriceTableEditor = () => {
               <span className="flex items-center gap-2">
                 <span className="w-2 h-2 bg-purple-500 rounded-full"></span>
                 Dùng nút "Xuất PNG" để lưu bảng báo giá
+              </span>
+              <span className="flex items-center gap-2">
+                <span className="w-2 h-2 bg-orange-500 rounded-full"></span>
+                Cột chiết khấu mới có thể chỉnh sửa
               </span>
             </div>
           </div>
