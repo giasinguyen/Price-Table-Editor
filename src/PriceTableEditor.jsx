@@ -439,16 +439,19 @@ const PriceTableEditor = () => {
         // Chiết khấu (cột mới)
         currentX += colWidths[5];
         ctx.fillStyle = '#7c3aed';
-        ctx.font = 'bold 20px "Segoe UI", Arial, sans-serif';
-        ctx.textAlign = 'center';
+        ctx.font = 'bold 18px "Segoe UI", Arial, sans-serif';
+        ctx.textAlign = 'left';
         const discountLines = product.discount.split('\n');
-        const discountStartY = rowY + (rowHeight - discountLines.length * 20) / 2 + 16;
+        const discountStartY = rowY + (rowHeight - discountLines.length * 18) / 2 + 14;
+        let currentLineY = discountStartY;
+        
         discountLines.forEach((line, lineIndex) => {
           // Kiểm tra độ dài dòng và tự động xuống dòng nếu cần
-          const maxWidth = colWidths[6] - 20;
+          const maxWidth = colWidths[6] - 30;
           const wrappedLines = wrapText(ctx, line, maxWidth);
           wrappedLines.forEach((wrappedLine, wrappedIndex) => {
-            ctx.fillText(wrappedLine, currentX + colWidths[6] / 2, discountStartY + (lineIndex * 20) + (wrappedIndex * 16));
+            ctx.fillText(wrappedLine, currentX + 15, currentLineY);
+            currentLineY += 18;
           });
         });
         
