@@ -10,7 +10,7 @@ const PriceTableEditor = () => {
       specification: "3kg/can\n4 can/thùng",
       shopPrice: "135.000đ",
       retailPrice: "175.000đ",
-      discount: "10%"
+      discount: "10%\nMua 5 thùng trở lên\nGiảm thêm 2%"
     },
     {
       id: 2,
@@ -19,7 +19,7 @@ const PriceTableEditor = () => {
       specification: "1.2l/túi\n12 túi/thùng",
       shopPrice: "55.000đ",
       retailPrice: "75.000đ",
-      discount: "15%"
+      discount: "15%\nKhuyến mãi tháng"
     },
     {
       id: 3,
@@ -28,7 +28,7 @@ const PriceTableEditor = () => {
       specification: "30gr/hộp\n20 hộp/thùng",
       shopPrice: "45.000đ",
       retailPrice: "65.000đ",
-      discount: "20%"
+      discount: "20%\nGiá sốc cuối năm"
     },
     {
       id: 4,
@@ -37,7 +37,7 @@ const PriceTableEditor = () => {
       specification: "115ml/túi\n20 túi/hộp\n8 hộp/thùng",
       shopPrice: "20.000đ",
       retailPrice: "26.000đ",
-      discount: "12%"
+      discount: "12%\nHàng mới về"
     },
     {
       id: 5,
@@ -46,7 +46,7 @@ const PriceTableEditor = () => {
       specification: "18gr/hũ\n4 hũ/hộp\n20 hộp/thùng",
       shopPrice: "135.000đ",
       retailPrice: "170.000đ",
-      discount: "18%"
+      discount: "18%\nSản phẩm cao cấp\nBảo hành chất lượng"
     },
     {
       id: 6,
@@ -55,7 +55,7 @@ const PriceTableEditor = () => {
       specification: "6 hũ/hộp\n100 hũ/thùng\nKèm vỏ hộp 6, hộp 9",
       shopPrice: "45.000đ",
       retailPrice: "60.000đ",
-      discount: "25%"
+      discount: "25%\nGiảm giá đặc biệt\nMua nhiều giảm nhiều"
     },
     {
       id: 7,
@@ -64,7 +64,7 @@ const PriceTableEditor = () => {
       specification: "6 hũ/hộp\n100 hũ/thùng",
       shopPrice: "38.000đ",
       retailPrice: "50.000đ",
-      discount: "22%"
+      discount: "22%\nSản phẩm bán chạy"
     }
   ]);
 
@@ -102,7 +102,7 @@ const PriceTableEditor = () => {
       specification: "Quy cách mới",
       shopPrice: "0đ",
       retailPrice: "0đ",
-      discount: "0%"
+      discount: "0%\nChiết khấu mới"
     };
     setProducts([...products, newProduct]);
   };
@@ -439,9 +439,18 @@ const PriceTableEditor = () => {
         // Chiết khấu (cột mới)
         currentX += colWidths[5];
         ctx.fillStyle = '#7c3aed';
-        ctx.font = 'bold 22px "Segoe UI", Arial, sans-serif';
+        ctx.font = 'bold 20px "Segoe UI", Arial, sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText(product.discount, currentX + colWidths[6] / 2, rowY + rowHeight / 2 + 8);
+        const discountLines = product.discount.split('\n');
+        const discountStartY = rowY + (rowHeight - discountLines.length * 20) / 2 + 16;
+        discountLines.forEach((line, lineIndex) => {
+          // Kiểm tra độ dài dòng và tự động xuống dòng nếu cần
+          const maxWidth = colWidths[6] - 20;
+          const wrappedLines = wrapText(ctx, line, maxWidth);
+          wrappedLines.forEach((wrappedLine, wrappedIndex) => {
+            ctx.fillText(wrappedLine, currentX + colWidths[6] / 2, discountStartY + (lineIndex * 20) + (wrappedIndex * 16));
+          });
+        });
         
         // Vẽ border dọc giữa các cột
         currentX = 40;
@@ -705,6 +714,7 @@ const PriceTableEditor = () => {
                     productId={product.id}
                     field="discount"
                     value={product.discount}
+                    multiline={true}
                   />
                 </div>
               </div>
@@ -740,7 +750,7 @@ const PriceTableEditor = () => {
               </span>
               <span className="flex items-center gap-2">
                 <span className="w-2 h-2 bg-orange-500 rounded-full"></span>
-                Cột chiết khấu mới có thể chỉnh sửa
+                Cột chiết khấu mới có thể chỉnh sửa nhiều dòng
               </span>
             </div>
           </div>
