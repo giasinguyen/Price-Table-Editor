@@ -167,7 +167,7 @@ export const exportToPNG = async (products) => {
         try {
           const img = await loadImage(product.image);
           // Kích thước hình vuông nhỏ hơn
-          const imgSize = 120; // Kích thước hình vuông 120x120px
+          const imgSize = 175; // Kích thước hình vuông 120x120px
           const imgX = currentX + (colWidths[2] - imgSize) / 2;
           const imgY = rowY + (rowHeight - imgSize) / 2;
           
