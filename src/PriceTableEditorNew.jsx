@@ -4,74 +4,74 @@ import ProductRow from './components/ProductRow';
 import { exportToPNG } from './utils/pngExporter';
 import { saveToLocalStorage, loadFromLocalStorage, clearLocalStorage } from './utils/localStorage';
 
-// Default products data - moved outside component to avoid re-renders
-const defaultProducts = [
-  {
-    id: 1,
-    name: "Nước giặt cho bé BB ECO dạng can",
-    image: null,
-    specification: "3kg/can\n4 can/thùng",
-    shopPrice: "135.000đ",
-    retailPrice: "175.000đ",
-    discount: "10%\nMua 5 thùng trở lên\nGiảm thêm 2%"
-  },
-  {
-    id: 2,
-    name: "Nước giặt cho bé BB ECO dạng túi",
-    image: null,
-    specification: "1.2l/túi\n12 túi/thùng",
-    shopPrice: "55.000đ",
-    retailPrice: "75.000đ",
-    discount: "15%\nKhuyến mãi tháng"
-  },
-  {
-    id: 3,
-    name: "Bánh ăn dặm Bidochi 5 vị",
-    image: null,
-    specification: "30gr/hộp\n20 hộp/thùng",
-    shopPrice: "45.000đ",
-    retailPrice: "65.000đ",
-    discount: "20%\nGiá sốc cuối năm"
-  },
-  {
-    id: 4,
-    name: "Hồng yến Bidochi dạng túi",
-    image: null,
-    specification: "115ml/túi\n20 túi/hộp\n8 hộp/thùng",
-    shopPrice: "20.000đ",
-    retailPrice: "26.000đ",
-    discount: "12%\nHàng mới về"
-  },
-  {
-    id: 5,
-    name: "Hồng yến Bidochi dạng hũ 25%",
-    image: null,
-    specification: "18gr/hũ\n4 hũ/hộp\n20 hộp/thùng",
-    shopPrice: "135.000đ",
-    retailPrice: "170.000đ",
-    discount: "18%\nSản phẩm cao cấp\nBảo hành chất lượng"
-  },
-  {
-    id: 6,
-    name: "Hồng yến Bidocare Cho người lớn",
-    image: null,
-    specification: "6 hũ/hộp\n100 hũ/thùng\nKèm vỏ hộp 6, hộp 9",
-    shopPrice: "45.000đ",
-    retailPrice: "60.000đ",
-    discount: "25%\nGiảm giá đặc biệt\nMua nhiều giảm nhiều"
-  },
-  {
-    id: 7,
-    name: "Hồng yến Bidochi dạng hũ 30%",
-    image: null,
-    specification: "6 hũ/hộp\n100 hũ/thùng",
-    shopPrice: "38.000đ",
-    retailPrice: "50.000đ",
-    discount: "22%\nSản phẩm bán chạy"
-  }
-];
-
 const PriceTableEditor = () => {
+  // Default products data
+  const defaultProducts = [
+    {
+      id: 1,
+      name: "Nước giặt cho bé BB ECO dạng can",
+      image: null,
+      specification: "3kg/can\n4 can/thùng",
+      shopPrice: "135.000đ",
+      retailPrice: "175.000đ",
+      discount: "10%\nMua 5 thùng trở lên\nGiảm thêm 2%"
+    },
+    {
+      id: 2,
+      name: "Nước giặt cho bé BB ECO dạng túi",
+      image: null,
+      specification: "1.2l/túi\n12 túi/thùng",
+      shopPrice: "55.000đ",
+      retailPrice: "75.000đ",
+      discount: "15%\nKhuyến mãi tháng"
+    },
+    {
+      id: 3,
+      name: "Bánh ăn dặm Bidochi 5 vị",
+      image: null,
+      specification: "30gr/hộp\n20 hộp/thùng",
+      shopPrice: "45.000đ",
+      retailPrice: "65.000đ",
+      discount: "20%\nGiá sốc cuối năm"
+    },
+    {
+      id: 4,
+      name: "Hồng yến Bidochi dạng túi",
+      image: null,
+      specification: "115ml/túi\n20 túi/hộp\n8 hộp/thùng",
+      shopPrice: "20.000đ",
+      retailPrice: "26.000đ",
+      discount: "12%\nHàng mới về"
+    },
+    {
+      id: 5,
+      name: "Hồng yến Bidochi dạng hũ 25%",
+      image: null,
+      specification: "18gr/hũ\n4 hũ/hộp\n20 hộp/thùng",
+      shopPrice: "135.000đ",
+      retailPrice: "170.000đ",
+      discount: "18%\nSản phẩm cao cấp\nBảo hành chất lượng"
+    },
+    {
+      id: 6,
+      name: "Hồng yến Bidocare Cho người lớn",
+      image: null,
+      specification: "6 hũ/hộp\n100 hũ/thùng\nKèm vỏ hộp 6, hộp 9",
+      shopPrice: "45.000đ",
+      retailPrice: "60.000đ",
+      discount: "25%\nGiảm giá đặc biệt\nMua nhiều giảm nhiều"
+    },
+    {
+      id: 7,
+      name: "Hồng yến Bidochi dạng hũ 30%",
+      image: null,
+      specification: "6 hũ/hộp\n100 hũ/thùng",
+      shopPrice: "38.000đ",
+      retailPrice: "50.000đ",
+      discount: "22%\nSản phẩm bán chạy"
+    }
+  ];
+
   const [products, setProducts] = useState(defaultProducts);
   const [editingCell, setEditingCell] = useState(null);
   const [editValue, setEditValue] = useState('');
@@ -81,39 +81,20 @@ const PriceTableEditor = () => {
 
   // Load data from localStorage on component mount
   useEffect(() => {
-    console.log('Loading from localStorage...');
     const savedProducts = loadFromLocalStorage();
-    console.log('Saved products:', savedProducts);
     if (savedProducts && savedProducts.length > 0) {
       setProducts(savedProducts);
-      setLastSaved(new Date());
-      console.log('Data loaded from localStorage');
-    } else {
-      console.log('No saved data found, using default products');
-      // Lưu dữ liệu mặc định vào localStorage ngay lần đầu
-      saveToLocalStorage(defaultProducts);
       setLastSaved(new Date());
     }
   }, []);
 
-  // Auto-save to localStorage when products change (debounced)
+  // Auto-save to localStorage when products change
   useEffect(() => {
-    // Không auto-save khi products là giá trị mặc định ban đầu
-    const isInitialLoad = JSON.stringify(products) === JSON.stringify(defaultProducts);
-    
-    if (products.length > 0 && !isInitialLoad) {
-      console.log('Auto-saving products to localStorage...');
-      const timer = setTimeout(() => {
-        const saved = saveToLocalStorage(products);
-        if (saved) {
-          setLastSaved(new Date());
-          console.log('Auto-save successful');
-        } else {
-          console.error('Auto-save failed');
-        }
-      }, 500); // Debounce 500ms để tránh lưu quá nhiều
-      
-      return () => clearTimeout(timer);
+    if (products.length > 0) {
+      const saved = saveToLocalStorage(products);
+      if (saved) {
+        setLastSaved(new Date());
+      }
     }
   }, [products]);
 
@@ -306,7 +287,7 @@ const PriceTableEditor = () => {
               </span>
               <span className="flex items-center gap-2">
                 <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
-                Click vào khung ảnh để tải hình sản phẩm
+                Click vào khung ảnh để tải hình sản phẩm (chiếm 90% ô ảnh)
               </span>
               <span className="flex items-center gap-2">
                 <span className="w-2 h-2 bg-purple-500 rounded-full"></span>
@@ -318,11 +299,7 @@ const PriceTableEditor = () => {
               </span>
               <span className="flex items-center gap-2">
                 <span className="w-2 h-2 bg-red-500 rounded-full"></span>
-                Cột chiết khấu được tối ưu hiển thị
-              </span>
-              <span className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-indigo-500 rounded-full"></span>
-                Nút "Reset" để khôi phục dữ liệu mặc định
+                Cột chiết khấu đã được tối ưu cho nội dung dài
               </span>
             </div>
           </div>
